@@ -25,4 +25,4 @@ A Python-based Weather API application that fetches real-time weather data, vali
 - Regular Expressions (Regex)
 - Logging Module
 - WeatherAPI
-- 
+ 
