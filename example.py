@@ -3,9 +3,17 @@ import requests
 import json
 import re
 import logging
+from dotenv import load_dotenv
+import os
+load_dotenv()
 logging.basicConfig(filename="validation.log",level=logging.INFO,format="%(asctime)s  %(levelname)s  %(message)s")
 from datetime import datetime
-conn=mysql.connector.connect(host="localhost",user="project_user",password="project123",database="weather_db")
+conn=mysql.connector.connect(
+    host=os.getenv("DB_HOST"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    database=os.getenv("DB_NAME")
+)
 print("connection established successfully")
 failed_validations=0
 cursor=conn.cursor()
@@ -29,7 +37,7 @@ def check_weather():
     global failed_validations
     validation_status = "FAILED"
     city=input("enter city:")
-    api_key="ee74f7f1cd93421c803102913261206"
+    api_key=os.getenv("API_KEY")
     url=f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
     response=requests.get(url)
     data=response.json()
